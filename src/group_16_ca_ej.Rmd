@@ -5,29 +5,34 @@ date: "11/11/2021"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r setup, include=TRUE, warning = FALSE, message = FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 
 library(tidyverse)
 library(janitor)
 library(here)
 ```
 
-```{r}
+```{r echo = TRUE, warning = FALSE, message = FALSE}
 
 ces <- read_csv(here("data", "ces3demographics.csv")) %>% 
   clean_names()
 ```
 
-```{r echo = FALSE, warning = FALSE, message = FALSE}
+```{r echo = TRUE, warning = FALSE, message = FALSE}
 ggplot(data = ces, aes(x = white_percent, y = ces_3_0_score)) +
   geom_hex() +
   labs(x = "Percent White",
        y = "CES 3.0 Score", 
        caption = "Figure 1. CalEnviroScreen 3.0 Score vs. White Population Percentage") +
   scale_fill_gradient(low = "green", high = "red") + 
-  theme_minimal()
+  theme_minimal() +
+  #left justify figure caption
+  theme(plot.caption=element_text(hjust = 0)) 
 
 ```
 
+Based on Figure 1, we can see that CES 3.0 Score and percentage of white people living in an area are negatively correlated. This means that in general, neighborhoods with more people of color experience more collective environmental burdens, such as pollution. 
 
+### Citation:
+Wieland, W. 2018. CalEnviroScreen 3.0 Results. Office of Environmental Health Hazard Assessment.  https://data.ca.gov/dataset/calenviroscreen-3-0-results (Accessed 2021-11-14). 
